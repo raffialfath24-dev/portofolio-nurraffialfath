@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Profesional - Nurraffi Alfath</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* RESET DASAR */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1a1a1a; /* Hitam atau Abu-abu gelap untuk profesionalisme */
+            --secondary-color: #f0f0f0; /* Latar belakang terang */
+            --accent-color: #708090; /* Slate Gray untuk aksen elegan */
+            --text-dark: #333;
+            --text-light: #fff;
+            --font-heading: 'Playfair Display', serif; /* Font elegan untuk judul */
+            --font-body: 'Roboto', sans-serif; /* Font bersih untuk teks */
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--secondary-color);
+            scroll-behavior: smooth;
+        }
+
+        /* TYPOGRAPHY */
+        h1, h2, h3 {
+            font-family: var(--font-heading);
+            color: var(--primary-color);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Efek garis bawah elegan untuk Judul */
+        h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-color);
+            margin: 10px auto 0;
+        }
+
+        /* HEADER DAN NAVIGASI */
+        .header {
+            background: var(--primary-color);
+            color: var(--text-light);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .header ul {
+            list-style: none;
+            display: flex;
+        }
+
+        .header ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            transition: color 0.3s, background-color 0.3s;
+            border-radius: 5px;
+        }
+
+        .header ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        /* BAGIAN HERO/PROFIL */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 6rem 5% 4rem;
+            min-height: 80vh;
+            background: linear-gradient(to bottom, var(--secondary-color), #fff);
+        }
+
+        .hero-content {
+            max-width: 50%;
+        }
+
+        .profile-img {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 50%; /* Bentuk lingkaran */
+            border: 8px solid var(--accent-color); /* Border elegan */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Efek tombol CTA */
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-2px); /* Efek sedikit terangkat */
+        }
+
+        /* BAGIAN UMUM (SECTION) */
+        .section {
+            padding: 4rem 5%;
+            border-top: 1px solid #ddd;
+        }
+
+        /* PENGALAMAN KERJA (TIMELINE) */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Garis vertikal timeline */
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: var(--accent-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+            opacity: 0; /* Dimulai tersembunyi untuk efek reveal */
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-item:nth-child(odd) {
+            right: 50%;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: var(--accent-color);
+            border: 3px solid var(--secondary-color);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -7px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -8px;
+        }
+
+        .timeline-content {
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .timeline-date {
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+        }
+        
+        /* GAYA UNTUK IKON PEKERJAAN */
+        .job-icon {
+            font-size: 2.5rem; /* Ukuran yang cukup terlihat */
+            margin-right: 15px;
+            float: left; /* Menggeser ikon ke kiri, teks mengalir di sekitarnya */
+            padding-top: 5px;
+        }
+
+        /* Warna berbeda untuk setiap jenis pekerjaan agar lebih jelas */
+        .job-icon.maintenance {
+            color: var(--accent-color); /* Abu-abu Elegance */
+        }
+
+        .job-icon.packing {
+            color: #4CAF50; /* Hijau (seperti logistik) */
+        }
+
+        .job-icon.food {
+            color: #FFC107; /* Kuning/Emas (seperti makanan) */
+        }
+
+        /* Memastikan konten di dalam timeline bersih setelah ikon */
+        .timeline-content::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* KEMAMPUAN (SKILLS) */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .skill-card {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid var(--accent-color);
+            transition: transform 0.3s ease;
+        }
+
+        /* Efek Hover Scale Up (Hover Effect) */
+        .skill-card.hover-scale:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* KONTAK */
+        .contact-section {
+            text-align: center;
+        }
+
+        .contact-links {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 700;
+            transition: opacity 0.3s;
+        }
+
+        .contact-link.whatsapp {
+            background-color: #25d366; /* Hijau WhatsApp */
+        }
+        .contact-link.email {
+            background-color: #d44638; /* Merah Gmail */
+        }
+        .contact-link.instagram {
+            background-color: #C13584; /* Ungu Instagram */
+        }
+
+        .contact-link:hover {
+            opacity: 0.8;
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* ==================================== */
+        /* ANIMASI DAN EFEK MENARIK */
+        /* ==================================== */
+
+        /* 1. Efek Fade In untuk Teks Hero */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .delay-1 {
+            animation-delay: 0.3s;
+        }
+
+        /* 2. Efek Pulse pada Gambar Profil */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(112, 128, 144, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(112, 128, 144, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(112, 128, 144, 0);
+            }
+        }
+
+        .profile-img.pulse-effect:hover {
+            animation: pulse 2s infinite;
+        }
+
+        /* MEDIA QUERIES (Responsif) */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .header nav ul {
+                padding-top: 10px;
+            }
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 4rem;
+            }
+            .hero-content {
+                max-width: 100%;
+                margin-top: 2rem;
+            }
+            .profile-img {
+                margin-bottom: 2rem;
+            }
+            h1 {
+                font-size: 2.5rem;
+            }
+            /* Timeline di layar kecil */
+            .timeline::after {
+                left: 31px;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            .timeline-item:nth-child(even), .timeline-item:nth-child(odd) {
+                left: 0;
+            }
+            .timeline-item:nth-child(odd) .timeline-dot {
+                left: 23px;
+            }
+            .timeline-item:nth-child(even) .timeline-dot {
+                left: 23px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">Nurraffi Alfath</div>
+        <nav>
+            <ul>
+                <li><a href="#profile">Profil</a></li>
+                <li><a href="#experience">Pengalaman</a></li>
+                <li><a href="#skills">Kemampuan</a></li>
+                <li><a href="#contact">Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="profile" class="hero">
+        <div class="hero-content">
+            <h1 class="fade-in">Halo, Saya **Nurraffi Alfath**</h1>
+            <p class="fade-in delay-1">Lulusan Madrasah Aliyah Islamiyah Sawangan Depok (2022). **Detail-Oriented** dan **Proaktif** dalam mendukung kelancaran operasional harian.</p>
+            <a href="#experience" class="cta-button">Lihat Pengalaman Saya</a>
+        </div>
+        <div class="hero-image-container">
+            <img src="profil.jpg" alt="Foto Profil Nurraffi Alfath" class="profile-img pulse-effect">
+        </div>
+    </section>
+
+    <section id="experience" class="section experience-section">
+        <h2>✨ Pengalaman Kerja</h2>
+        <div class="timeline">
+            <div class="timeline-item reveal-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-date">2024 - Sekarang (7 Bulan)</div>
+                <div class="timeline-content">
+                    <i class="fas fa-dumbbell job-icon maintenance"></i> 
+                    <h3>Global Satria Indo - Maintenance Alat Fitness</h3>
+                    <p>Bertanggung jawab atas pemeliharaan preventif dan perbaikan seluruh alat fitness (termasuk treadmill dan mesin beban) untuk memastikan kondisi operasional yang prima dan aman. Berhasil menerapkan prosedur pengamanan, meminimalkan downtime, dan perbaikan yang efisien.</p>
+                </div>
+            </div>
+            <div class="timeline-item reveal-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-date">2023 - 2024</div>
+                <div class="timeline-content">
+                    <i class="fas fa-box-open job-icon packing"></i> 
+                    <h3>Beauty Skincare - Packing Barang</h3>
+                    <p>Bertanggung jawab dalam proses pengemasan dan pensortiran produk skincare untuk pengiriman. Mempertahankan akurasi pemenuhan pesanan (order fulfillment) di atas 99%. Berkontribusi pada efisiensi operasional dengan mengoptimalkan kecepatan packing hingga 30-50 pesanan per jam.</p>
+                </div>
+            </div>
+             <div class="timeline-item reveal-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-date">2025 - Sekarang (5 Bulan)</div>
+                <div class="timeline-content">
+                    <i class="fas fa-utensils job-icon food"></i> 
+                    <h3>Kebab Turki Baba Rafi - Crew Outlet</h3>
+                    <p>Bertanggung jawab atas menjaga outlet dan juga menjaga kebersihan serta pelayanan terhadap pelanggan sehingga pelanggan merasa nyaman.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section skills-section">
+        <h2>🛠️ Kemampuan Utama</h2>
+        <div class="skills-grid">
+            <div class="skill-card hover-scale">
+                <h3>Microsoft Excel & Powerpoint</h3>
+                <p>Mahir dalam pengolahan data dan presentasi profesional.</p>
+            </div>
+            <div class="skill-card hover-scale">
+                <h3>Kerja Sama Tim (Kolaborasi)</h3>
+                <p>Terbiasa bekerja secara tim dan proaktif dalam mencapai tujuan bersama.</p>
+            </div>
+            <div class="skill-card hover-scale">
+                <h3>Mengoperasikan Komputer</h3>
+                <p>Penguasaan dasar hingga menengah dalam penggunaan komputer.</p>
+            </div>
+            <div class="skill-card hover-scale">
+                <h3>Kepekaan & Manajemen Waktu</h3>
+                <p>Disiplin, cepat, dan berkomitmen tinggi pada kebersihan dan efisiensi.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section contact-section">
+        <h2>✉️ Hubungi Saya</h2>
+        <p>Saya siap untuk tantangan baru dan berkomitmen untuk memberikan kontribusi terbaik.</p>
+        <div class="contact-links">
+            <a href="https://wa.me/62895xxxxxxx" target="_blank" class="contact-link whatsapp">WhatsApp</a>
+            <a href="mailto:raffalfath24@gmail.com" class="contact-link email">Email</a>
+            <a href="https://instagram.com/rffxth" target="_blank" class="contact-link instagram">Instagram</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2024 Nurraffi Alfath Portofolio. Dibuat dengan semangat profesionalisme.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Scroll Reveal Effect (Efek muncul saat digulir)
+            const revealElements = document.querySelectorAll('.reveal-item');
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Menambahkan kelas 'visible' untuk memicu transisi/animasi CSS
+                        entry.target.classList.add('visible');
+                        // Menghentikan pengamatan setelah elemen terlihat
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                // Opsi: rootMargin berfungsi untuk memicu efek sebelum elemen benar-benar terlihat
+                rootMargin: '0px',
+                threshold: 0.1 // Setidaknya 10% dari elemen harus terlihat
+            });
+
+            // Mulai mengamati setiap elemen yang ditargetkan
+            revealElements.forEach(element => {
+                observer.observe(element);
+            });
+
+            // 2. Navigasi Smooth Scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
